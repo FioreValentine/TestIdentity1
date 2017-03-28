@@ -50,6 +50,12 @@ namespace TestIdentity.Controllers
             return View(details);
         }
 
+        public ActionResult LogOut()
+        {
+            AuthManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         private IAuthenticationManager AuthManager
         {
             get
@@ -66,5 +72,6 @@ namespace TestIdentity.Controllers
                 return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             }
         }
+        
     }
 }

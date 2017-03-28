@@ -12,7 +12,7 @@ namespace TestIdentity.Models
         public string Name { get; set; }
 
         [Required]
-        public string E_mail { get; set;}
+        public string E_mail { get; set; }
 
         [Required]
         public string Password { get; set; }
@@ -25,5 +25,21 @@ namespace TestIdentity.Models
 
         [Required]
         public string Password { get; set; }
+    }
+
+    public class RoleEditModel
+    {
+        public AppRole Role { get; set; }
+        public IEnumerable<AppUser> Members { get; set; }
+
+        public IEnumerable<AppUser> NonMembers { get; set; }
+    }
+
+    public class RoleModifyModel
+    {
+        [Required]
+        public string RoleName { get; set; }
+        public string[] IdsToAdd { get; set; }
+        public string[] IdsToDelete { get; set; }
     }
 }
