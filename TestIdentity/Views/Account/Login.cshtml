@@ -1,0 +1,26 @@
+﻿@model TestIdentity.Models.LoginModel
+
+@{
+    ViewBag.Title = "Авторизация";
+}
+
+<h2>Войти</h2>
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+    <div class="form-group">
+        <label>Имя</label>
+        @Html.TextBoxFor(x => x.Name, new { @class = "from-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Пароль</label>
+        @Html.PasswordFor(x => x.Password, new { @class = "from-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Войти</button>
+}
+
