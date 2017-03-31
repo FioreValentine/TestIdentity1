@@ -24,41 +24,43 @@ namespace TestIdentity.Infrastructure
         }
     }
 
-    public class IdentityDbInit: DropCreateDatabaseAlways<AppIdentityDbContext>
+    public class IdentityDbInit: NullDatabaseInitializer<AppIdentityDbContext>
     {
-        protected override void Seed(AppIdentityDbContext context)
-        {
-            PerformInitialSetup(context);
-            base.Seed(context);
-        }
+        //теперь база не сбрасывается при изменении классов модели
 
-        //заполняем базу
-        public void PerformInitialSetup(AppIdentityDbContext context)
-        {
-            AppUserManager userMgr = new AppUserManager(new UserStore<AppUser>(context));
-            AppRoleManager roleMgr = new AppRoleManager(new RoleStore<AppRole>(context));
+        //protected override void Seed(AppIdentityDbContext context)
+        //{
+        //    PerformInitialSetup(context);
+        //    base.Seed(context);
+        //}
 
-            string roleName = "Administrators";
-            string userName = "Admin";
-            string password = "Admin11";
-            string e_mail = "admin@mail.com";
+        ////заполняем базу
+        //public void PerformInitialSetup(AppIdentityDbContext context)
+        //{
+        //    AppUserManager userMgr = new AppUserManager(new UserStore<AppUser>(context));
+        //    AppRoleManager roleMgr = new AppRoleManager(new RoleStore<AppRole>(context));
 
-            if (!roleMgr.RoleExists(roleName))
-            {
-                roleMgr.Create(new AppRole(roleName));
-            }
+        //    string roleName = "Administrators";
+        //    string userName = "Admin";
+        //    string password = "Admin11";
+        //    string e_mail = "admin@mail.com";
 
-            AppUser user = userMgr.FindByName(userName);
-            if (user == null)
-            {
-                userMgr.Create(new AppUser { UserName = userName, Email = e_mail}, password);
-                user = userMgr.FindByName(userName);
-            }
+        //    if (!roleMgr.RoleExists(roleName))
+        //    {
+        //        roleMgr.Create(new AppRole(roleName));
+        //    }
 
-            if (!userMgr.IsInRole(user.Id, roleName))
-            {
-                userMgr.AddToRole(user.Id, roleName);
-            }
-        }
+        //    AppUser user = userMgr.FindByName(userName);
+        //    if (user == null)
+        //    {
+        //        userMgr.Create(new AppUser { UserName = userName, Email = e_mail}, password);
+        //        user = userMgr.FindByName(userName);
+        //    }
+
+        //    if (!userMgr.IsInRole(user.Id, roleName))
+        //    {
+        //        userMgr.AddToRole(user.Id, roleName);
+        //    }
+        //}
     }
 }

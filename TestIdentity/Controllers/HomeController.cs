@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
+using TestIdentity.Models;
+using TestIdentity.Infrastructure;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace TestIdentity.Controllers
 {
@@ -31,6 +38,58 @@ namespace TestIdentity.Controllers
         public ActionResult OtherAction()
         {
             return View("Index", GetData("OtherAction"));
+        }
+
+        private AppUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+            }
+        }
+
+        private AppUser CurrentUser
+        {
+            get
+            {
+                return UserManager.FindByName(HttpContext.User.Identity.Name);
+            }
+        }
+
+        //метод для загрузки названия элемента перечисления
+        [NonAction]
+        public static string GetCityName<TEnum>(TEnum item)
+            where TEnum: struct, IConvertible
+        {
+            if (!typeof(TEnum).IsEnum)
+            {
+                throw new ArgumentException("Тип TEnum должен быть перечислением");
+            }
+            else
+            {
+                return item.GetType()
+                    .GetMember(item.ToString())
+                    .First()
+                    .GetCustomAttribute<DisplayAttribute>()
+                    .Name;
+            }
+        }
+
+        [Authorize]
+        public ActionResult UserProps()
+        {
+            return View(CurrentUser);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult> UserProps(Cities city)
+        {
+            AppUser user = CurrentUser;
+            user.City = city;
+            await UserManager.UpdateAsync(user);
+
+            return View(user);
         }
     }
 }

@@ -1,0 +1,31 @@
+﻿@model TestIdentity.Models.AppUser
+@using TestIdentity.Controllers
+@using TestIdentity.Models
+@using System.Linq
+
+@{
+    ViewBag.Title = "Пользовательские свойства";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Пользовательские свойства
+    </div>
+    <table class="table table-striped">
+        <tr><th>Текущий город</th><td>@HomeController.GetCityName(Model.City)</td></tr>
+    </table>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label>Город: </label>
+        @Html.DropDownListFor(x => x.City, new SelectList(
+                    Enum.GetValues(typeof(Cities)).OfType<Cities>().Select(c =>
+                    {
+                        return new { Id = c, Text = HomeController.GetCityName(c) };
+                    }),
+                    "Id", "Text"))
+    </div>
+    <button class="btn btn-primary" type="submit">Сохранить</button>
+}
