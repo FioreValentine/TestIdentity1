@@ -13,6 +13,7 @@ using TestIdentity.Infrastructure;
 
 namespace TestIdentity.Controllers
 {
+    [Authorize(Roles = "Administrators")]
     public class RoleAdminController : Controller
     {
         private AppUserManager UserManager

@@ -21,12 +21,12 @@ namespace TestIdentity.Infrastructure
         {
             IdentityResult res = await base.ValidateAsync(user);
 
-            if (!user.Email.ToLower().EndsWith("@mail.com")/*Regex.IsMatch(user.Email.ToLower(),@"\S+@\S+\.\S+")*/)
-            {
-                var errors = res.Errors.ToList();
-                errors.Add("Запрещены адреса, отличные от mail.com");
-                res = new IdentityResult(errors);
-            }
+            //if (!user.Email.ToLower().EndsWith("@mail.com")/*Regex.IsMatch(user.Email.ToLower(),@"\S+@\S+\.\S+")*/)
+            //{
+            //    var errors = res.Errors.ToList();
+            //    errors.Add("Запрещены адреса, отличные от mail.com");
+            //    res = new IdentityResult(errors);
+            //}
 
             return res;
         }

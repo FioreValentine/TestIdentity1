@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace TestIdentity.Controllers
 {
+    [Authorize(Roles = "Administrators")]
     public class AdminController : Controller
     {
         // GET: Admin
