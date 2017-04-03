@@ -50,6 +50,12 @@ namespace TestIdentity.Migrations
                 usr.City = Cities.MOSCOW;
             }
 
+            foreach (AppUser usr in userMgr.Users)
+            {
+                if (usr.Country == Countries.NONE)
+                    usr.SetCountryGromCity(usr.City);
+            }
+
             context.SaveChanges();
         }
     }

@@ -7,13 +7,13 @@ namespace TestIdentity.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CityProperty : IMigrationMetadata
+    public sealed partial class CountryProperty : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CityProperty));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CountryProperty));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703310917371_CityProperty"; }
+            get { return "201704030822353_CountryProperty"; }
         }
         
         string IMigrationMetadata.Source

@@ -87,6 +87,8 @@ namespace TestIdentity.Controllers
         {
             AppUser user = CurrentUser;
             user.City = city;
+            user.SetCountryGromCity(city);
+
             await UserManager.UpdateAsync(user);
 
             return View(user);
